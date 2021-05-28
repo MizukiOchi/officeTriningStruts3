@@ -8,7 +8,7 @@ prefix属性により、struts-html.tldを使用する場合は、タグにhtmlを指定する。--%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>おみくじ</title>
+<title>おみくじ[validateメソッドを使用して入力チェック]</title>
 
 <!--   ↓↓↓画面のデザイン設定（<head>内に設定すること）↓↓↓ -->
 		<style>
@@ -102,7 +102,7 @@ prefix属性により、struts-html.tldを使用する場合は、タグにhtmlを指定する。--%>
 
 <%--エラーメッセージの処理 --%>
 <div class="errorMessage">
-<html:errors/>  <%-- (3)<html:error/>タグはエラーが生成されている場合は、エラーメッセージを表示し、エラーが生成されていない場合は、何も表示したいタグ。--%>
+<html:errors/>  <%-- (3)<html:error/>タグはエラーが生成されている場合は、エラーメッセージを表示し、エラーが生成されていない場合は、何も表示したいタグ。 --%>
 </div>
 <html:form action="/fortuneResults" focus="birthday"> <%-- (4) <html:form>タグはHTMLの<form>タグとほぼ同様の振舞いをするタグ。action属性はsubmitボタンが押された時の遷移先を指定。focus属性はこのJSPファイルが開かれた時にどのフォーム項目を初めに選択可能にするかを指定する。--%>
 	<html:text property="birthday" size="8" /> <%-- (5) <html:text>タグはHTMLの<input type=text>タグとほぼ同様の振舞いをするタグ。property属性はHTMLのname属性、size属性はHTMLのsize属性と同様の働きをする。--%>

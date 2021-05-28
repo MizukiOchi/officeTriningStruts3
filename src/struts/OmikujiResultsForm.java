@@ -1,6 +1,13 @@
 package struts;
 
+import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 public final class OmikujiResultsForm extends ActionForm {
 
@@ -17,6 +24,23 @@ public final class OmikujiResultsForm extends ActionForm {
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
+
+	 public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+
+ActionErrors errors = new ActionErrors();
+
+if (birthday.length() != 8) {
+	errors.add("birthday",new ActionMessage("errors.length"));//エラー生成
+}
+SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+format.setLenient(false);
+try {
+	format.parse(birthday);
+} catch (Exception e) {
+	errors.add("birthday",new ActionMessage("errors.date"));//エラー生成
+}
+return errors;
+}
 
 	public String getFortuneName() {
 		return fortuneName;

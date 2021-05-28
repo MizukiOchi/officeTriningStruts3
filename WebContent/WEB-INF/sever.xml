@@ -3,7 +3,7 @@
   <Context path="" docBase="ROOT" debug="0"/>
 -->
 
-<Context path="/javatips" docBase="javatips" debug="0"
+<Context path="/javatips2" docBase="javatips" debug="0"
          reloadable="false" crossContext="true">
   <Resource name="jdbc/TestDB" auth="container"
             type="javax.sql.DataSource" debug="1" />

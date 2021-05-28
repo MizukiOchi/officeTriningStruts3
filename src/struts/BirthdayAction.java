@@ -1,7 +1,6 @@
 package struts;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -14,8 +13,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 
 import Bean.OmikujiBean;
 import Bean.ResultsBean;
@@ -33,12 +30,6 @@ public final class BirthdayAction extends Action {//Actionクラスをスーパ�
 		OmikujiResultsForm OmikujiResultsForm = (OmikujiResultsForm) form;
 		String birthday = OmikujiResultsForm.getBirthday();
 		session.setAttribute("birthday", birthday);//画面遷移を何回しても半永久敵に値が保存できる
-
-		 checkBirthday(birthday, request);
-		ActionMessages messages  = getErrors(request);
-		if(!messages.isEmpty()) {
-			return (mapping.findForward("fail"));
-		}else {
 
 			/**今日の日付を取得する */
 			Date date = new Date();
@@ -90,34 +81,6 @@ public final class BirthdayAction extends Action {//Actionクラスをスーパ�
 			session.setAttribute("results", oi);
 			return (mapping.findForward("success"));
 		}
-	}
-
-	/**
-	 * メソッドの説明：
-	 * 受け取った誕生日の値が正しいかどうかをチェックするメソッド。
-	 * １、入力された日付が８桁かのチェック
-	 * ２、存在する日付かどうかのチェック
-	 *
-	 * @return checkBirthday(birthday)
-	 */
-	private void  checkBirthday(String birthday, HttpServletRequest request) {
-				ActionMessages errorsMessage = new ActionMessages();
-		if (birthday.length() != 8) {
-			errorsMessage.add(ActionMessages.GLOBAL_MESSAGE,
-					new ActionMessage("errors.length")); //エラー生成
-			saveErrors(request, errorsMessage); //エラーの保存
-		}
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		format.setLenient(false);
-		try {
-			format.parse(birthday);
-		} catch (Exception e) {
-			errorsMessage.add(ActionMessages.GLOBAL_MESSAGE,
-					new ActionMessage("errors.date")); //エラー生成
-			saveErrors(request, errorsMessage); //エラーの保存
-		}
-		return;
-	}
 
 	/**
 	 * メソッドの説明：
@@ -132,5 +95,3 @@ public final class BirthdayAction extends Action {//Actionクラスをスーパ�
 		return resultDate;
 	}
 }
-
-
