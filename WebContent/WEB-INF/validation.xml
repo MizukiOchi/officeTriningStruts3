@@ -6,9 +6,9 @@
     The ASF licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
     the License.  You may obtain a copy of the License at
-   
+
          http://www.apache.org/licenses/LICENSE-2.0
-   
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -84,7 +84,37 @@
                     </var>
             </field>
         </form>
-
    </formset>
+
+   <formset>
+		<form name="OmikujiResultsForm">
+      <!-- minlengthルールの指定
+        minlength変数で条件の最低入力数を指定 -->
+            <field property="birthday" depends="minlength">
+           <msg name="minlength" key="errors.length" />
+                <var>
+                    <var-name>minlength</var-name>
+                    <var-value>8</var-value>
+                </var>
+            </field>
+            <!-- maxlengthルールの指定
+        maxlength変数で条件の最低入力数を指定 -->
+            <field property="birthday" depends="maxlength">
+           <msg name="maxlength" key="errors.length" />
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>8</var-value>
+                </var>
+            </field>
+		 <!-- datePatternStrictルールの指定 -->
+		 <field property="birthday" depends="datePatternStrict">
+		 <msg name="datePatternStrict" key="errors.date" />
+                <var>
+                    <var-name>datePattern</var-name>
+                    <var-value>yyyy/mm/dd</var-value>
+                </var>
+  		</field>
+        </form>
+	</formset>
 
 </form-validation>

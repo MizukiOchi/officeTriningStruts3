@@ -4,11 +4,12 @@
 ここでは、Strutsであらかじめ用意されているStrutsタグライブラリのうち、struts-html.tldの使用を指定する。
 prefix属性により、struts-html.tldを使用する場合は、タグにhtmlを指定する。--%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <html>
 <head>
 <meta charset="UTF-8">
-<title>おみくじ[validateメソッドを使用して入力チェック]</title>
+<title>おみくじ[validatorを使用して入力チェック]</title>
 
 <!--   ↓↓↓画面のデザイン設定（<head>内に設定すること）↓↓↓ -->
 		<style>
@@ -102,7 +103,11 @@ prefix属性により、struts-html.tldを使用する場合は、タグにhtmlを指定する。--%>
 
 <%--エラーメッセージの処理 --%>
 <div class="errorMessage">
-<html:errors/>  <%-- (3)<html:error/>タグはエラーが生成されている場合は、エラーメッセージを表示し、エラーが生成されていない場合は、何も表示したいタグ。 --%>
+<%-- <html:messages>タグでエラーメッセージを表示します。エラーメッセージを表示するときはmessage属性をfalseにします。 --%>
+<html:messages id="msg" message="false">
+    <%-- filter属性をfalseにすることでメッセージにHTMLタグを利用できます。trueにするとHTMLタグがあった場合置換文字（<、>など）に変換します。 --%>
+    <bean:write name="msg" ignore="true" filter="false"/>
+</html:messages>
 </div>
 <html:form action="/fortuneResults" focus="birthday"> <%-- (4) <html:form>タグはHTMLの<form>タグとほぼ同様の振舞いをするタグ。action属性はsubmitボタンが押された時の遷移先を指定。focus属性はこのJSPファイルが開かれた時にどのフォーム項目を初めに選択可能にするかを指定する。--%>
 	<html:text property="birthday" size="8" /> <%-- (5) <html:text>タグはHTMLの<input type=text>タグとほぼ同様の振舞いをするタグ。property属性はHTMLのname属性、size属性はHTMLのsize属性と同様の働きをする。--%>
