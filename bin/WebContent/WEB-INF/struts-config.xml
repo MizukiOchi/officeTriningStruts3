@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="Shift_JIS" ?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http:struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<!-- (1)アクション・フォームBeanの指定 -->
+	<form-beans>
+		<!-- <form-bean name="OmikujiResultsForm" type="struts.OmikujiResultsForm"/> -->
+		<form-bean name="OmikujiResultsForm" type="org.apache.struts.validator.DynaValidatorForm"/>
+		<form-property  name="birthday"  type="java.lang.String" />
+		<form-bean name="HalfMonthResultsForm" type="struts.HalfMonthResultsForm"/>
+		<form-bean name="SameBirthdayForm" type="struts.SameBirthdayForm"/>
+	</form-beans>
+
+<!-- (3)アクション・クラスの振舞いを指定 -->
+<!-- Validatorを使用する場合validate属性をtrueに指定。
+      Validatorのエラーを表示する画面をinput属性で指定。 -->
+<action-mappings>
+	<action path="/fortuneResults" type="struts.BirthdayAction" name="OmikujiResultsForm" scope="request" validate="true" input="/pages/InputBirthday.jsp">
+		<forward name="success" path="/pages/OmikujiResults.jsp"/>
+		<forward name="fail" path="/pages/InputBirthday.jsp"/>
+	</action>
+	<action path="/hmResults" type="struts.HalfMonthResultsAction" name="HalfMonthResultsForm" scope="request">
+		<forward name="success" path="/pages/JhalfMonthResults.jsp"/>
+	</action>
+	<action path="/sbResults" type="struts.SameBirthdayAction" name="SameBirthdayForm" scope="request">
+		<forward name="success" path="/pages/JsameBirthday.jsp"/>
+	</action>
+	<action path="/Return" type="struts.ReturnAction" name="ReturnForm" scope="request">
+		<forward name="success" path="/pages/InputBirthday.jsp"/>
+	</action>
+</action-mappings>
+
+
+<!-- (4)メッセージ・リソース・ファイルの指定 -->
+<message-resources parameter="MessageResources"/>
+
+<!-- Validatorの指定。プロパティpathnamesの値に
+         validator-rules.xmlとvalidation.xmlを指定 -->
+<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property　property="pathnames"　value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validation.xml"/>
+  </plug-in>
+
+</struts-config>
+
